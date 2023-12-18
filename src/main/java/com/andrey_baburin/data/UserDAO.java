@@ -1,0 +1,18 @@
+package com.andrey_baburin.data;
+
+import com.andrey_baburin.entity.Task;
+import com.andrey_baburin.entity.User;
+
+import java.util.List;
+
+public interface UserDAO {
+    void addUser(User user);
+
+    List<User> getAllUsers();
+
+    User getUserById(int id);
+
+    int updateUser(User user);
+
+    void deleteUserById(int id);
+}

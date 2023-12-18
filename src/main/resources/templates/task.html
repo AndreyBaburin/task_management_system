@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task by Id</title>
+    <link href="/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<h1>Задача</h1>
+
+<table>
+    <tr>
+        <th>Задача</th>
+        <th>Описание</th>
+        <th>Приоритет</th>
+        <th>Статус</th>
+        <th>Исполнитель</th>
+    </tr>
+    <tr>
+        <td>
+            <a>
+                <span th:text="${task.getTitle()}">VALUE></span>
+            </a>
+        </td>
+
+        <td>
+            <a>
+                <span th:text="${task.getDescription()}">VALUE</span>
+            </a>
+        </td>
+
+        <td>
+            <a>
+                <span th:text="${task.getPriority()}">VALUE</span>
+            </a>
+        </td>
+
+        <td>
+            <a>
+                <span th:text="${task.getStatus()}">VALUEE</span>
+            </a>
+        </td>
+
+        <td>
+            <a>
+                <span th:text="${task.getUser().getName()}">VALUEE</span>
+            </a>
+        </td>
+    </tr>
+
+
+</table>
+<p>
+    <a href="/manager/tasks" style="display: inline-block; padding: 7px 11px; background-color: #6262f6;
+   color: white; text-decoration: none; margin-top: 10px; margin-left: 900px;">Назад</a>
+</p>
+</body>
+</html>

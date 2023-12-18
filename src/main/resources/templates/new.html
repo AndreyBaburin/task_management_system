@@ -1,0 +1,36 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New task</title>
+    <link href="/styleForNew.css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Новая задача</h1>
+
+<form th:method="POST" th:action="@{/manager/tasks}" th:object="${task}">
+    <label for="title">Заголовок:</label>
+    <input type="text" th:field="*{title}" id="title"/>
+
+    <label for="description">Описание:</label>
+    <textarea th:field="*{description}" id="description" rows="5" cols="50"></textarea>
+
+
+    <label for="priority">Приоритет:</label>
+    <select th:field="*{priority}" id="priority">
+        <option value="Высокий приоритет">Высокий</option>
+        <option value="Средний приоритет">Средний</option>
+        <option value="Низкий приоритет">Низкий</option>
+    </select>
+
+    <label for="user">Пользователь:</label>
+    <select th:field="${task.user.id}" id="user">
+        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+    </select>
+
+    <br/>
+    <input type="submit" value="Создать"/>
+    <a href="/manager/tasks" style="display:inline-block;padding:7px 11px;
+    background-color:#6262f6;color:white;text-decoration:none;">Назад</a>
+</form>
+</body>
+</html>

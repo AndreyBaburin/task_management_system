@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All-tasks</title>
+  <link href="/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<h1>Менеджер задач</h1>
+
+<table>
+
+  <tr>
+    <th>Задача</th>
+    <th>Приоритет</th>
+    <th>Статус</th>
+    <th>Исполнитель</th>
+    <th></th>
+  </tr>
+
+  <th:block th:each="task: ${tasks}">
+    <tr>
+      <td>
+        <a th:href="@{/manager/tasks/{id}(id=${task.getId()})}">
+          <span th:text="${task.getTitle()}"></span>
+        </a>
+      </td>
+
+      <td>
+        <a>
+          <span th:text="${task.getPriority()}"></span>
+        </a>
+      </td>
+
+      <td>
+        <a>
+          <span th:text="${task.getStatus()}"></span>
+        </a>
+      </td>
+
+      <td>
+        <a>
+          <span th:text="${task.getUser().getName()}"></span>
+        </a>
+      </td>
+
+      <td>
+        <a th:href="@{/manager/tasks/{id}/edit(id=${task.getId()})}">
+          <button>Изменить</button>
+        </a>
+      </td>
+
+      <td>
+        <form th:method="DELETE" th:action="@{/manager/tasks/{id}(id=${task.id})}">
+          <input type="submit" value="Удалить">
+        </form>
+      </td>
+    </tr>
+  </th:block>
+
+</table>
+
+<p>
+  <a href="/manager/new" style="display: inline-block; padding: 7px 13px; background-color: #6262f6;
+   color: white; text-decoration: none; margin-top: 10px; margin-left: 900px;">Создать</a>
+</p>
+
+</body>
+</html>

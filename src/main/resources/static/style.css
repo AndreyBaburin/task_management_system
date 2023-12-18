@@ -1,0 +1,27 @@
+h1, h2, h3, h4, h5, h6 {
+    color: black;
+    text-align: center;
+}
+
+body {
+    background-color: lightyellow;
+    font-family: Arial, sans-serif;
+}
+
+table {
+    border: 1px solid gray;
+    width: 60%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid gray;
+    padding: 10px;
+    text-align: center;
+}
+
+.error {
+    color: darkred;
+    font-weight: bold;
+}
