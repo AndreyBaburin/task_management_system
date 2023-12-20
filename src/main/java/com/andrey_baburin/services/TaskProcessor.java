@@ -2,10 +2,11 @@ package com.andrey_baburin.services;
 
 import com.andrey_baburin.data.TaskDAO;
 import com.andrey_baburin.entity.Task;
-import com.andrey_baburin.entity.User;
-import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 

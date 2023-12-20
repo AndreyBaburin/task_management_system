@@ -48,6 +48,22 @@ public class UserJdbcDAO implements UserDAO{
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        log.info("SELECT * FROM users WHERE email = ?");
+        User user;
+        try {
+            user = jdbcTemplate.queryForObject(
+                    "SELECT * FROM users WHERE email = ?",
+                    new BeanPropertyRowMapper<>(User.class), email);
+        } catch (EmptyResultDataAccessException e) {
+//            throw new TaskNotFoundException("No such task in DB for given ID");
+//            throw new RuntimeException("No such task in DB for given email");
+            return null;
+        }
+        return user;
+    }
+
+    @Override
     public int updateUser(User user) {
 
         return 0;

@@ -1,11 +1,11 @@
 package com.andrey_baburin.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -20,6 +20,7 @@ public class User {
     private int id;
     private String name;
     private String email;
+    private String password;
 
     @OneToMany
     private List<Task> tasks;

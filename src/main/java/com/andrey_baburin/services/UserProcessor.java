@@ -4,14 +4,18 @@ import com.andrey_baburin.data.TaskDAO;
 import com.andrey_baburin.data.UserDAO;
 import com.andrey_baburin.entity.Task;
 import com.andrey_baburin.entity.User;
-import jakarta.transaction.Transactional;
+import com.andrey_baburin.security.UserInformation;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
 @Transactional
-public class UserProcessor implements UserService{
+public class UserProcessor implements UserService, UserDetailsService {
     private final UserDAO userDAO;
 
     public UserProcessor(@Qualifier("JDBC") UserDAO userDAO) {
@@ -28,7 +32,17 @@ public class UserProcessor implements UserService{
         User user = userDAO.getUserById(id);
         if (user == null) {
 //            throw new TaskNotFoundException();
-            throw new RuntimeException("No such task in DB ");
+            throw new RuntimeException("No such USER in DB ");
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        User user = userDAO.getUserByEmail(email);
+        if (user == null) {
+//            throw new TaskNotFoundException();
+            throw new UsernameNotFoundException("User not found");
         }
         return user;
     }
@@ -46,5 +60,15 @@ public class UserProcessor implements UserService{
     @Override
     public void deleteById(int id) {
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDAO.getUserByEmail(username);
+        if (user == null) {
+//            throw new TaskNotFoundException();
+            throw new UsernameNotFoundException("User not found");
+        }
+        return new UserInformation(user);
     }
 }
