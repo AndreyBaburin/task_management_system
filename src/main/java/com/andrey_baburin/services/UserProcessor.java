@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Service
 @Transactional
 public class UserProcessor implements UserService, UserDetailsService {
@@ -48,8 +49,17 @@ public class UserProcessor implements UserService, UserDetailsService {
     }
 
     @Override
-    public void createUser(User user) {
+    public boolean exist(User user) {
+        User newUser = userDAO.getUserByEmail(user.getEmail());
+        if (newUser == null) {
+            return false;
+        }
+        return true;
+    }
 
+    @Override
+    public void createUser(User user) {
+        userDAO.addUser(user);
     }
 
     @Override

@@ -22,7 +22,9 @@ public class UserJdbcDAO implements UserDAO{
 
     @Override
     public void addUser(User user) {
-
+        log.info("addUser INSERT INTO users");
+        String sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, user.getName(), user.getEmail(),  user.getPassword());
     }
 
     @Override
@@ -56,8 +58,6 @@ public class UserJdbcDAO implements UserDAO{
                     "SELECT * FROM users WHERE email = ?",
                     new BeanPropertyRowMapper<>(User.class), email);
         } catch (EmptyResultDataAccessException e) {
-//            throw new TaskNotFoundException("No such task in DB for given ID");
-//            throw new RuntimeException("No such task in DB for given email");
             return null;
         }
         return user;

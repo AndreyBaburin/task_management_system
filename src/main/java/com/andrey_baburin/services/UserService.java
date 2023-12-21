@@ -13,6 +13,8 @@ public interface UserService {
 
     void createUser(User user);
 
+    boolean exist(User user);
+
     void updateUser(int id,User user);
 
     void deleteById(int id);
