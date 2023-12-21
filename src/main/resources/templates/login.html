@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+
+</head>
+<body>
+<h1 style="text-align: center;">Добро пожаловать в Менеджер Задач</h1>
+<form name="f" method="post" action="/process_login">
+    <label for="username">Введите Логин (email): </label>
+    <input type="text" name="username" id="username"/>
+    <br/>
+    <label for="password">Введите пароль: </label>
+    <input type="password" name="password" id="password"/>
+    <br/>
+    <input type="submit" value="Войти"/>
+    <div th:if="${param.error}" style="color: red">
+        Неправильные имя или пароль
+    </div>
+</form>
+<p>
+    <a href="/auth/registration" style="display: inline-block; padding: 7px 11px; background-color: #6262f6;
+   color: white; text-decoration: none; margin-top: 10px; margin-left: 575px;">Регистрация</a>
+</p>
+<style>
+    body {
+        background-color: lightyellow;
+        font-family: Arial, sans-serif;
+    }
+
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    label {
+        margin-bottom: 10px;
+    }
+
+    input, select {
+        margin-bottom: 15px;
+        padding: 5px;
+        width: 300px;
+    }
+
+    input[type="submit"] {
+        width: auto;
+    }
+
+</style>
+
+
+</body>
+</html>
+
+
+
+
+

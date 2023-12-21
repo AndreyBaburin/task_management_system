@@ -1,0 +1,29 @@
+
+ body {
+     background-color: lightyellow;
+     font-family: Arial, sans-serif;
+ }
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+input, select {
+    margin-bottom: 15px;
+    padding: 5px;
+    width: 300px;
+}
+
+input[type="submit"] {
+    width: auto;
+}
+
+
