@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit for User</title>
+    <link href="/style.css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Изменение статуса</h1>
+
+<table>
+    <tr>
+        <th>Задача</th>
+        <th>Описание</th>
+        <th>Приоритет</th>
+        <th>Статус</th>
+        <th>Исполнитель</th>
+    </tr>
+
+    <tr>
+        <form th:method="put" th:action="@{/manager/tasks/{id}(id=${task.getId()})}" th:object="${task}">
+            <td>
+                <a>
+                    <span th:text="${task.getTitle()}">VALUE></span>
+                    <input type="hidden" th:field="*{title}" th:value="${task.getTitle()}"/>
+                </a>
+            </td>
+
+            <td>
+                <a>
+                    <span th:text="${task.getDescription()}">VALUE</span>
+                    <input type="hidden" th:field="*{description}" th:value="${task.getDescription()}"/>
+                </a>
+            </td>
+
+
+            <td>
+                <select th:field="*{status}" id="status">
+                    <option value="в ожидании">в ожидании</option>
+                    <option value="в процессе">в процессе</option>
+                    <option value="завершено">завершено</option>
+                </select>
+            </td>
+
+            <td>
+                <a>
+                    <span th:text="${task.getPriority()}">VALUE</span>
+                    <input type="hidden" th:field="*{priority}" th:value="${task.getPriority()}"/>
+                </a>
+            </td>
+
+            <td>
+                <a>
+                    <span th:text="${task.getUser().getName()}">VALUE</span>
+                    <input type="hidden" th:field="*{user}" th:value="${task.getUser().getId()}"/>
+                    <input type="hidden" th:field="*{creator}" th:value="${task.getCreator().getId()}"/>
+
+                </a>
+            </td>
+
+            <td>
+                <input type="submit" value="Сохранить">
+
+            </td>
+        </form>
+    </tr>
+</table>
+<p>
+    <a href="/manager/tasks" style="display: inline-block; padding: 7px 11px; background-color: #6262f6;
+   color: white; text-decoration: none; margin-top: 10px; margin-left: 900px;">Назад</a>
+</p>
+</body>
+</html>

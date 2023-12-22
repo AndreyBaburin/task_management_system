@@ -26,4 +26,7 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "creator_id")
+    private User creator;
 }

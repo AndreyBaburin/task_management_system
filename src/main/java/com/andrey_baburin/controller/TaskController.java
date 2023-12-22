@@ -2,17 +2,20 @@ package com.andrey_baburin.controller;
 
 import com.andrey_baburin.entity.Task;
 import com.andrey_baburin.entity.User;
+import com.andrey_baburin.security.UserInformation;
 import com.andrey_baburin.services.TaskService;
 import com.andrey_baburin.services.UserService;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,7 +24,7 @@ import java.util.List;
 public class TaskController {
 
     private final TaskService taskService;
-    private  final UserService userService;
+    private final UserService userService;
 
     @GetMapping("/tasks")
     public String getAllTasks(Model model) {
@@ -52,23 +55,33 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
-    public String create(@Valid @ModelAttribute Task task) {
+    public String create(@Valid @ModelAttribute Task task, @AuthenticationPrincipal UserInformation userInformation) {
+        User creator = userInformation.getUser();
+        task.setCreator(creator);
         taskService.createTask(task);
         return "redirect:/manager/tasks";
     }
 
     @GetMapping("/tasks/{id}/edit")
-    public String edit(@PathVariable int id, Model model) {
+    public String edit(@PathVariable int id, Model model,  @AuthenticationPrincipal UserInformation userInformation) throws AccessDeniedException {
         Task task = taskService.getTaskById(id);
-        List<User> users = userService.getAllUsers();
-        model.addAttribute("task", task);
-        model.addAttribute("users", users);
-        return "edit";
+        if (task.getCreator().equals(userInformation.getUser())){
+            List<User> users = userService.getAllUsers();
+            model.addAttribute("task", task);
+            model.addAttribute("users", users);
+            return "editForCreator";
+        } else if (task.getUser().equals(userInformation.getUser())) {
+            List<User> users = userService.getAllUsers();
+            model.addAttribute("task", task);
+            model.addAttribute("users", users);
+            return "editForUser";
+        }
+        throw new AccessDeniedException("Нет прав доступа");
     }
 
     @PutMapping("/tasks/{id}")
     public String doEdit(@Valid @ModelAttribute Task task, @PathVariable int id) {
-        taskService.updateTask(task.getId(),task);
+        taskService.updateTask(task.getId(), task);
         return "redirect:/manager/tasks";
     }
 
