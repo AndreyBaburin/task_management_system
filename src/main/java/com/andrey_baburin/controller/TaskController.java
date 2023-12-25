@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.validation.Valid;
@@ -63,20 +64,21 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}/edit")
-    public String edit(@PathVariable int id, Model model,  @AuthenticationPrincipal UserInformation userInformation) throws AccessDeniedException {
+    public String edit(@PathVariable int id, Model model, @AuthenticationPrincipal UserInformation userInformation,
+                       RedirectAttributes redirectAttributes)  {
         Task task = taskService.getTaskById(id);
-        if (task.getCreator().equals(userInformation.getUser())){
+        if (task.getCreator().equals(userInformation.getUser())) {
             List<User> users = userService.getAllUsers();
             model.addAttribute("task", task);
             model.addAttribute("users", users);
             return "editForCreator";
         } else if (task.getUser().equals(userInformation.getUser())) {
-            List<User> users = userService.getAllUsers();
             model.addAttribute("task", task);
-            model.addAttribute("users", users);
             return "editForUser";
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Нет прав доступа");
+            return "redirect:/manager/tasks";
         }
-        throw new AccessDeniedException("Нет прав доступа");
     }
 
     @PutMapping("/tasks/{id}")

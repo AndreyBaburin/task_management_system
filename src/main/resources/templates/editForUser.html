@@ -15,6 +15,7 @@
         <th>Приоритет</th>
         <th>Статус</th>
         <th>Исполнитель</th>
+        <th>Автор</th>
     </tr>
 
     <tr>
@@ -52,12 +53,15 @@
             <td>
                 <a>
                     <span th:text="${task.getUser().getName()}">VALUE</span>
-                    <input type="hidden" th:field="*{user}" th:value="${task.getUser().getId()}"/>
-                    <input type="hidden" th:field="*{creator}" th:value="${task.getCreator().getId()}"/>
-
+                    <input type="hidden" th:field="*{user.id}" th:value="${task.getUser().getId()}"/>
                 </a>
             </td>
-
+            <td>
+                <a>
+                    <span th:text="${task.getCreator().getName()}">VALUE</span>
+                    <input type="hidden" th:field="*{creator.id}" th:value="${task.getCreator().getId()}"/>
+                </a>
+            </td>
             <td>
                 <input type="submit" value="Сохранить">
 
@@ -65,9 +69,11 @@
         </form>
     </tr>
 </table>
-<p>
-    <a href="/manager/tasks" style="display: inline-block; padding: 7px 11px; background-color: #6262f6;
-   color: white; text-decoration: none; margin-top: 10px; margin-left: 900px;">Назад</a>
+
+<p style="text-align: center;">
+    <a href="/manager/tasks" style="display: inline-block; padding: 7px 13px;
+     background-color: #6262f6; color: white; text-decoration: none;">Назад</a>
 </p>
+
 </body>
 </html>

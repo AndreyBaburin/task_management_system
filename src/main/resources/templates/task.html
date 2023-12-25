@@ -16,6 +16,7 @@
         <th>Приоритет</th>
         <th>Статус</th>
         <th>Исполнитель</th>
+        <th>Автор</th>
     </tr>
     <tr>
         <td>
@@ -45,6 +46,12 @@
         <td>
             <a>
                 <span th:text="${task.getUser().getName()}">VALUEE</span>
+            </a>
+        </td>
+
+        <td>
+            <a>
+                <span th:text="${task.getCreator().getName()}">VALUEE</span>
             </a>
         </td>
     </tr>

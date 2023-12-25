@@ -20,13 +20,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/login","/auth/registration", "/error").permitAll()
+                .antMatchers("/auth/login", "/auth/registration", "/error").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
                 .defaultSuccessUrl("/manager/tasks", true)
-                .failureUrl("/auth/login?error");
+                .failureUrl("/auth/login?error")
+                .and()
+                .logout().logoutUrl("/logout")
+                .logoutSuccessUrl("/auth/login");
     }
 
     @Override

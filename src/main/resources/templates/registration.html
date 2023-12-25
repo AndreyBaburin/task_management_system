@@ -21,10 +21,12 @@
         <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         <input type="submit" value="Зарегистрироваться">
     </form>
-    <p>
-        <a href="/auth/login/tasks" style="display: inline-block; padding: 7px 11px; background-color: #6262f6;
-   color: white; text-decoration: none; margin-top: 10px; margin-left: 600px;">Назад</a>
+
+    <p style="text-align: center;">
+        <a href="/auth/login/tasks" style="display: inline-block; padding: 7px 13px;
+     background-color: #6262f6; color: white; text-decoration: none;">Назад</a>
     </p>
+
     <style>
         body {
             background-color: lightyellow;
