@@ -30,8 +30,7 @@ public class TaskProcessor implements TaskService {
     public Task getTaskById(int id) {
         Task task = taskDAO.getTaskById(id);
         if (task == null) {
-//            throw new TaskNotFoundException();
-            throw new RuntimeException("No such task in DB ");
+            throw new RuntimeException("The task was not found in the database by ID");
         }
         return task;
     }

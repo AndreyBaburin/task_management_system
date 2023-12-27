@@ -43,8 +43,7 @@ public class UserJdbcDAO implements UserDAO{
                     "SELECT * FROM users WHERE ID = ?",
                     new BeanPropertyRowMapper<>(User.class), id);
         } catch (EmptyResultDataAccessException e) {
-//            throw new TaskNotFoundException("No such task in DB for given ID");
-            throw new RuntimeException("No such task in DB for given ID");
+            throw new RuntimeException("The task was not found in the database by ID");
         }
         return user;
     }
@@ -63,14 +62,4 @@ public class UserJdbcDAO implements UserDAO{
         return user;
     }
 
-    @Override
-    public int updateUser(User user) {
-
-        return 0;
-    }
-
-    @Override
-    public void deleteUserById(int id) {
-
-    }
 }

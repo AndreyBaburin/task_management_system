@@ -13,7 +13,4 @@ public interface UserDAO {
     User getUserById(int id);
     User getUserByEmail(String email);
 
-    int updateUser(User user);
-
-    void deleteUserById(int id);
 }

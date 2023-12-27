@@ -42,8 +42,7 @@ public class UserProcessor implements UserService, UserDetailsService {
     public User getUserByEmail(String email) {
         User user = userDAO.getUserByEmail(email);
         if (user == null) {
-//            throw new TaskNotFoundException();
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("User was not found in the database by email");
         }
         return user;
     }
@@ -51,10 +50,7 @@ public class UserProcessor implements UserService, UserDetailsService {
     @Override
     public boolean exist(User user) {
         User newUser = userDAO.getUserByEmail(user.getEmail());
-        if (newUser == null) {
-            return false;
-        }
-        return true;
+        return newUser != null;
     }
 
     @Override
@@ -62,22 +58,13 @@ public class UserProcessor implements UserService, UserDetailsService {
         userDAO.addUser(user);
     }
 
-    @Override
-    public void updateUser(int id, User user) {
-
-    }
-
-    @Override
-    public void deleteById(int id) {
-
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDAO.getUserByEmail(username);
         if (user == null) {
-//            throw new TaskNotFoundException();
-            throw new UsernameNotFoundException("User not found");
+
+            throw new UsernameNotFoundException("User was not found in the database by email");
         }
         return new UserInformation(user);
     }

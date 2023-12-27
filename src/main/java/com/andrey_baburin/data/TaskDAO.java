@@ -11,7 +11,7 @@ public interface TaskDAO {
 
     Task getTaskById(int id);
 
-    int updateTask(Task t);
+    void updateTask(Task t);
 
     void deleteTaskById(int id);
 }

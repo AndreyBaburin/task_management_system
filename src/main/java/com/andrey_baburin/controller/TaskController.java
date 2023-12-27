@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.validation.Valid;
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -82,7 +81,7 @@ public class TaskController {
     }
 
     @PutMapping("/tasks/{id}")
-    public String doEdit(@Valid @ModelAttribute Task task, @PathVariable int id) {
+    public String doEdit(@Valid @ModelAttribute Task task) {
         taskService.updateTask(task.getId(), task);
         return "redirect:/manager/tasks";
     }

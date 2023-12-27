@@ -25,19 +25,17 @@ public class TaskJdbcDAO implements TaskDAO {
     @Override
     public void addTask(Task task) {
         log.info("addTask INSERT INTO tasks");
-        log.info(task.toString());
         String sql = "INSERT INTO tasks (title, description, status, priority, user_id, creator_id) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, task.getTitle(), task.getDescription(),  task.getStatus(),
                 task.getPriority(), task.getUser().getId(), task.getCreator().getId());
     }
 
     @Override
-    public int updateTask(Task task) {
+    public void updateTask(Task task) {
         log.info("UPDATE tasks SET");
-        log.info(task.toString());
         String sql = "UPDATE tasks SET title = ?, description = ?, status = ?," +
                 " priority = ?, user_id = ?, creator_id = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, task.getTitle(), task.getDescription(),task.getStatus(),
+        jdbcTemplate.update(sql, task.getTitle(), task.getDescription(),task.getStatus(),
                 task.getPriority(),task.getUser().getId(), task.getCreator().getId(), task.getId());
     }
 
@@ -67,15 +65,14 @@ public class TaskJdbcDAO implements TaskDAO {
                     },
                     id);
         } catch (EmptyResultDataAccessException e) {
-//        throw new TaskNotFoundException("No such task in DB for given ID");
-            throw new RuntimeException("No such task in DB for given ID");
+            throw new RuntimeException("The task was not found in the database by ID");
         }
         return task;
     }
 
     @Override
     public void deleteTaskById(int id) {
-        log.info("Running Spring JDBC query to DELETE");
+        log.info("DELETE FROM tasks");
         String sql = "DELETE FROM tasks WHERE id=?";
         jdbcTemplate.update(sql, id);
     }

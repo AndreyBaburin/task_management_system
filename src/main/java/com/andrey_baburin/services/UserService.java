@@ -15,7 +15,4 @@ public interface UserService {
 
     boolean exist(User user);
 
-    void updateUser(int id,User user);
-
-    void deleteById(int id);
 }
