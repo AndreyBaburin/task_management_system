@@ -11,12 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public class TaskProcessor implements TaskService {
 
     private final TaskDAO taskDAO;
 
-    public TaskProcessor(@Qualifier("JDBC") TaskDAO taskDAO) {
+    public TaskProcessor(@Qualifier("Hibernate") TaskDAO taskDAO) {
         this.taskDAO = taskDAO;
     }
 

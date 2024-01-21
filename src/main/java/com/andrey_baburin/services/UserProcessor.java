@@ -15,11 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public class UserProcessor implements UserService, UserDetailsService {
     private final UserDAO userDAO;
 
-    public UserProcessor(@Qualifier("JDBC") UserDAO userDAO) {
+    public UserProcessor(@Qualifier("Hibernate") UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
